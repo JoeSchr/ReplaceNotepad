@@ -6,7 +6,8 @@
 ## dropbox
 #pythonw "C:\Path\To\gVimReplaceNotepad\gVimReplaceNotepad.py" -Z
 import subprocess,os,sys, getopt
-
+# old bin_path = "C:/Program Files (x86)/Vim/vim74/gvim.exe"
+bin_path = "C:/Program Files/emacs/bin/runemacs.exe"
 def main(argv):
     inputfile = ''
     try:
@@ -18,9 +19,11 @@ def main(argv):
         if opt == '-h':
            print 'gVimReplaceNotepad.py -Z ignoredThis pathToFile Arguments:', argv
            sys.exit()
-        elif opt == '-Z' and len(args) >= 1: 
-           inputfile = " ".join(args) # the rest it the pathtoopen with vim 
-           vimargs = [os.path.normpath("C:/Program Files (x86)/Vim/vim74/gvim.exe"),os.path.normpath(inputfile)]
+        elif opt == '-Z' and len(args) >= 1:
+           inputfile = " ".join(args) # the rest it the pathtoopen with vim
+           # old for gvim
+           # vimargs = [os.path.normpath(bin_path), "--remote-tab-silent",os.path.normpath(inputfile)]
+           vimargs = [os.path.normpath(bin_path), "--insecure",os.path.normpath(inputfile)]
            # full logging
            # vimargs = [os.path.normpath("C:/Program Files (x86)/Vim/vim74/gvim.exe"),os.path.normpath(inputfile),"--startuptime", "e:\\vim.log"]
            sys.exit(subprocess.call(vimargs,shell=True))
