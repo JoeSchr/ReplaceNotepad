@@ -8,20 +8,27 @@
 import subprocess,os,sys, getopt
 bin_path = "C:/Program Files/emacs/bin/emacsclientw.exe"
 def main(argv):
-    inputfile = ''
+    inputfile = None
+    vimargs = [os.path.normpath(bin_path), "-cna=runemacs"]
     try:
        opts, args = getopt.getopt(argv,"hZ:")
     except getopt.GetoptError:
-        print 'gVimReplaceNotepad.py -Z ignoredThis pathToFile Arguments:', argv
-        sys.exit(2)
+        print 'ReplaceNotepad.py [-Z ignoredThis pathToFile] Arguments:', argv
+        opts = []
     for opt, arg in opts:
         if opt == '-h':
-           print 'gVimReplaceNotepad.py -Z ignoredThis pathToFile Arguments:', argv
+           print 'ReplaceNotepad.py -Z ignoredThis pathToFile Arguments:', argv
            sys.exit()
-        elif opt == '-Z' and len(args) >= 1:
+        if opt == '-Z' and len(args) >= 1:
            inputfile = " ".join(args) # the rest it the pathtoopen with vim
-           vimargs = [os.path.normpath(bin_path), "-cna=runemacs",os.path.normpath(inputfile)]
-           sys.exit(subprocess.call(vimargs,shell=True))
+           inputfile = os.path.normpath(inputfile)
+           break
+
+    #vimargs = [os.path.normpath(bin_path), "-cna=runemacs", inputfile]
+    if not inputfile:
+        inputfile = "new file"
+    vimargs.append(inputfile)
+    sys.exit(subprocess.call(vimargs,shell=True))
     # print 'Input file is "',inputfile
     # print 'Args is "',argv
     # raw_input("Press Enter to continue...")

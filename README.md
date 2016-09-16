@@ -1,4 +1,4 @@
-gVimReplaceNotepad
+ReplaceNotepad
 ==================
 
 quick n dirty script to help me replacing notepad with gvim. it uses the debug switch -Z so it ignores the first argument (which would be "pathto/notepad.exe") and the opens gvim with what ever comes after it. 
