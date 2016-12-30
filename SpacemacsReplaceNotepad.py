@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 ### CONFIG
 ## Open Regedit
 ## In "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options"
 ## Add:
-## Debugger : pythonw "C:\Path\To\gVimReplaceNotepad\gVimReplaceNotepad.py" -Z
+## Debugger (REG_SZ) : pyw "C:\Path\To\gVimReplaceNotepad\gVimReplaceNotepad.py" -Z
 
 import subprocess,os,sys, getopt
 bin_path = "C:/Program Files/emacs/bin/emacsclientw.exe"
