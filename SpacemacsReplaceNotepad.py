@@ -9,7 +9,8 @@ import subprocess,os,sys, getopt
 bin_path = "C:/Program Files/emacs/bin/emacsclientw.exe"
 def main(argv):
     inputfile = None
-    vimargs = [os.path.normpath(bin_path), "-cna=runemacs"]
+    processargs = [os.path.normpath(bin_path), "--alternate-editor=runemacs"]
+    processargs.append("--create-frame")
     try:
        opts, args = getopt.getopt(argv,"hZ:")
     except getopt.GetoptError:
@@ -24,11 +25,12 @@ def main(argv):
            inputfile = os.path.normpath(inputfile)
            break
 
-    #vimargs = [os.path.normpath(bin_path), "-cna=runemacs", inputfile]
-    if not inputfile:
-        inputfile = "new file"
-    vimargs.append(inputfile)
-    sys.exit(subprocess.call(vimargs,shell=True))
+    #processargs = [os.path.normpath(bin_path), "-cna=runemacs", inputfile]
+    if inputfile: # -c without filename just opens with *scratch*
+        processargs.append(inputfile)
+        #inputfile = "new file" # opens with buffer "new file"
+    #processargs.append(inputfile)
+    sys.exit(subprocess.call(processargs,shell=True))
     # print 'Input file is "',inputfile
     # print 'Args is "',argv
     # raw_input("Press Enter to continue...")
